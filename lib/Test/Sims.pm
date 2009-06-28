@@ -62,7 +62,24 @@ C<<:rand>> all C<<rand_*>> functions.  C<<:ALL>> exports everything.
 
 =head2 make_rand()
 
-=head2 TEST_SIMS_SEED
+    my $code = make_rand $name => \@list;
+
+Creates a subroutine called C<<rand_$name>> and exports it on request.
+
+
+=head2 Controlling randomness
+
+You can control the random seed used by Test::Sims by setting the
+C<TEST_SIMS_SEED> environment variable.  This is handy to make test runs
+repeatable.
+
+=begin todo
+
+Test::Sims will output the seed used at the end of each test run.  If
+the test failed it will be visible to the user, otherwise it will be a
+TAP comment and only visible if the test is run verbosely.
+
+=end todo
 
 =cut
 
