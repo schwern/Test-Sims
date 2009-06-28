@@ -127,8 +127,12 @@ sub make_rand {
 
     {
         no strict 'refs';
-        *{$caller . '::rand_' . $name} = $code;
-        push @{$caller . '::EXPORT_OK'}, "rand_$name";
+        my $func = "rand_$name";
+        *{$caller .'::'. $func} = $code;
+        push @{$caller . '::EXPORT_OK'}, $func;
+
+        my $export_tags = \%{ $caller . '::EXPORT_TAGS' };
+        push @{$export_tags->{"rand"}}, $func;
     }
 
     return $code;
