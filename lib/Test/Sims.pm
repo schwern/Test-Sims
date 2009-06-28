@@ -43,10 +43,37 @@ create large, nested, interesting data structures.
 This module contains no new assertions, but it does tie in with
 Test::Builder.
 
+It does two things.  It contains functions which make generating
+random data easier and it allows you to write repeatable, yet random,
+test data.
+
+=head2 Automatic exports
+
+By using Test::Sims your module will inherit from Exporter.
+
+=begin todo
+
+It will automatically export any functions called C<<sim_*>> and will
+export anything called C<<rand_*>> on demand.  In addition there will
+be export tags.  C<<:sim>> will export all C<<sim_*>> functions and
+C<<:rand>> all C<<rand_*>> functions.  C<<:ALL>> exports everything.
+
+=end todo
+
+=head2 make_rand()
+
+=head2 TEST_SIMS_SEED
+
 =cut
 
 use base qw(Exporter);
 our @EXPORT = qw(make_rand);
+
+# Yes, its not a great seed but it doesn't have to be secure.
+my $Seed = defined $ENV{TEST_SIMS_SEED} ? $ENV{TEST_SIMS_SEED} : time ^ $$;
+
+# XXX If something else calls srand() we're in trouble
+srand($Seed);
 
 sub import {
     my $class = shift;

@@ -4,4 +4,5 @@ lib/Test/Sims.pm
 MANIFEST			This list of files
 MANIFEST.SKIP
 t/00compile.t
+t/control_rand.t
 t/rand.t
