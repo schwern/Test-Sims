@@ -1,0 +1,7 @@
+Build.PL
+inc/MyBuild.pm
+lib/Test/Sims.pm
+MANIFEST			This list of files
+MANIFEST.SKIP
+t/00compile.t
+t/rand.t
