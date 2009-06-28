@@ -17,14 +17,17 @@ use Test::More;
 # A class which already has exports
 {
     package Things;
-    use Test::Sims;
 
     use base "Exporter";
     our @EXPORT_OK = "stuff";
 
+    use Test::Sims;
+
     sub stuff { 42 }
 
     make_rand stuff => [qw(this that other thing)];
+
+    ::is_deeply \@Things::ISA, ["Exporter"], "Exporter only added to \@ISA once";
 }
 
 
