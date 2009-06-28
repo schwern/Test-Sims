@@ -34,3 +34,18 @@
 \bcover_db\b
 #!end included /usr/local/perl/5.10.0/lib/5.10.0/ExtUtils/MANIFEST.SKIP
 
+
+# Avoid Module::Build generated and utility files.
+\bBuild$
+\bBuild.bat$
+\b_build
+\bBuild.COM$
+\bBUILD.COM$
+\bbuild.com$
+
+# Avoid archives of this distribution
+\bTest-Sims-[\d\.\_]+
+
+# emacs temp file
+\.#
+
