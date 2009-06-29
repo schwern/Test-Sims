@@ -100,6 +100,7 @@ sub import {
     __PACKAGE__->export_to_level(1, $class, @_);
 }
 
+
 sub make_rand {
     my $name = shift;
     my $items = shift;
@@ -121,17 +122,52 @@ sub make_rand {
         return @return;
     };
 
-    {
-        no strict 'refs';
-        my $func = "rand_$name";
-        *{$caller .'::'. $func} = $code;
-        push @{$caller . '::EXPORT_OK'}, $func;
-
-        my $export_tags = \%{ $caller . '::EXPORT_TAGS' };
-        push @{$export_tags->{"rand"}}, $func;
-    }
+    my $func = "rand_$name";
+    _alias($caller, $func, $code);
+    _add_to_export_ok($caller, $func);
+    _add_to_export_tags($caller, $func, 'rand');
 
     return $code;
+}
+
+
+sub _add_to_export_ok {
+    my($package, $func) = @_;
+
+    no strict 'refs';
+    push @{$package . '::EXPORT_OK'}, $func;
+
+    return;
+}
+
+
+sub _add_to_export {
+    my($package, $func) = @_;
+
+    no strict 'refs';
+    push @{$package . '::EXPORT'}, $func;
+
+    return;
+}
+
+sub _add_to_export_tags {
+    my($package, $func, $tag) = @_;
+
+    no strict 'refs';
+    my $export_tags = \%{ $package . '::EXPORT_TAGS' };
+    push @{$export_tags->{$tag}}, $func;
+
+    return;
+}
+
+
+sub _alias {
+    my($package, $func, $code) = @_;
+
+    no strict 'refs';
+    *{$package .'::'. $func} = $code;
+
+    return;
 }
 
 
