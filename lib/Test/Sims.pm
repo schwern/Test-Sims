@@ -73,13 +73,9 @@ You can control the random seed used by Test::Sims by setting the
 C<TEST_SIMS_SEED> environment variable.  This is handy to make test runs
 repeatable.
 
-=begin todo
-
 Test::Sims will output the seed used at the end of each test run.  If
 the test failed it will be visible to the user, otherwise it will be a
 TAP comment and only visible if the test is run verbosely.
-
-=end todo
 
 =cut
 
@@ -138,5 +134,25 @@ sub make_rand {
     return $code;
 }
 
+
+sub _display_seed {
+    my $tb = shift;
+
+    my $ok = $tb->summary && !(grep !$_, $tb->summary);
+    my $msg = "TEST_SIMS_SEED=$Seed";
+    $ok ? $tb->note($msg) : $tb->diag($msg);
+
+    return;
+}
+
+
+END {
+    require Test::Builder;
+    my $tb = Test::Builder->new;
+
+    if( defined $tb->has_plan ) {
+        _display_seed($tb);
+    }
+}
 
 1;
