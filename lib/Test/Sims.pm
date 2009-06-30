@@ -47,25 +47,21 @@ It does two things.  It contains functions which make generating
 random data easier and it allows you to write repeatable, yet random,
 test data.
 
-=head2 Automatic exports
-
-By using Test::Sims your module will inherit from Exporter.
-
-=begin todo
-
-It will automatically export any functions called C<<sim_*>> and will
-export anything called C<<rand_*>> on demand.  In addition there will
-be export tags.  C<<:sim>> will export all C<<sim_*>> functions and
-C<<:rand>> all C<<rand_*>> functions.  C<<:ALL>> exports everything.
-
-=end todo
-
 =head2 make_rand()
 
     my $code = make_rand $name => \@list;
 
 Creates a subroutine called C<<rand_$name>> and exports it on request.
 
+Also adds it to a "rand" export tag.
+
+=head2 export_sims()
+
+    export_sims();
+
+A utility function which causes your module to export all the
+functions called C<<sims_*>>.  It also creates an export tag called
+"sims".
 
 =head2 Controlling randomness
 
@@ -80,7 +76,7 @@ TAP comment and only visible if the test is run verbosely.
 =cut
 
 use base qw(Exporter);
-our @EXPORT = qw(make_rand);
+our @EXPORT = qw(make_rand export_sims);
 
 # Yes, its not a great seed but it doesn't have to be secure.
 my $Seed = defined $ENV{TEST_SIMS_SEED} ? $ENV{TEST_SIMS_SEED} : time ^ $$;
@@ -128,6 +124,25 @@ sub make_rand {
     _add_to_export_tags($caller, $func, 'rand');
 
     return $code;
+}
+
+
+sub export_sims {
+    my $caller = caller;
+
+    my $symbols = do {
+        no strict 'refs';
+        \%{$caller .'::'};
+    };
+
+    my @sim_funcs = grep { *{$symbols->{$_}}{CODE} }
+                    grep /^sim_/, keys %$symbols;
+    for my $func (@sim_funcs) {
+        _add_to_export($caller, $func);
+        _add_to_export_tags($caller, $func, 'sims');
+    }
+
+    return;
 }
 
 
@@ -192,3 +207,16 @@ END {
 }
 
 1;
+
+
+=head1 LICENSE and COPYRIGHT
+
+Copyright 2009 Michael G Schwern E<gt>schwern@pobox.comE<lt>
+
+This program is free software; you can redistribute it and/or
+modify it under the same terms as Perl itself.
+
+See F<http://www.perl.com/perl/misc/Artistic.html>
+
+=cut
+

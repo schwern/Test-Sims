@@ -7,6 +7,7 @@ t/00compile.t
 t/control_rand.t
 t/diag_seed_on_fail.t
 t/diag_seed_on_plan_but_no_tests.t
+t/export_sims.t
 t/exports.t
 t/no_tests_no_seed.t
 t/note_seed_on_pass.t
