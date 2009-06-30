@@ -18,7 +18,7 @@ BEGIN {
 
     use Test::Sims;
 
-    make_rand "flower" => [ qw(Rose Daisy Ed Bob) ];
+    make_rand "flower" => [qw(Rose Daisy Ed Bob)];
 
     ::is_deeply [ rand_flower() ], ['Bob'];
     ::is_deeply [ rand_flower( max => 5 ) ], [ 'Ed', 'Ed' ];
