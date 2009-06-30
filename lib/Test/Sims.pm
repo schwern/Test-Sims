@@ -52,8 +52,14 @@ test data.
 =head2 make_rand()
 
     my $code = make_rand $name => \@list;
+    my $code = make_rand $name => sub { ... };
 
 Creates a subroutine called C<<rand_$name>> and exports it on request.
+
+If a @list is given, an element will be taken out of that list at random.
+
+If a subroutine is given it will simply give that routine a name.
+This is just to get the convenience of adding it to the exports.
 
 Also adds it to a "rand" export tag.
 
@@ -101,11 +107,14 @@ sub import {
 
 sub make_rand {
     my $name  = shift;
-    my $items = shift;
+    my $thing = shift;
+
+    my $items = ref $thing eq "ARRAY" ? $thing : [];
+    my $code  = $thing if ref $thing eq "CODE";
 
     my $caller = caller;
 
-    my $code = sub {
+    $code ||= sub {
         my %args = @_;
         $args{min} = 1 unless defined $args{min};
         $args{max} = 1 unless defined $args{max};
