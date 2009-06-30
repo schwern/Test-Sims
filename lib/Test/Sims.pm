@@ -223,7 +223,8 @@ L<http://search.cpan.org/dist/Test-Sims>.
 
 =head1 BUGS
 
-Please report bugs to L<http://github.com/schwern/Test-Sims/issues>.
+Please report bugs, problems, rough corners, feedback and suggestions
+to L<http://github.com/schwern/Test-Sims/issues>.
 
 Report early, report often.
 
