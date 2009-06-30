@@ -1,6 +1,7 @@
 .perlcriticrc
 .perltidyrc
 Build.PL
+Changes
 inc/MyBuild.pm
 lib/Test/Sims.pm
 MANIFEST			This list of files

@@ -334,6 +334,10 @@ L<http://schwern.org/talks/Generating%20Test%20Data%20With%20The%20Sims.pdf>
 is a set of slides outlining the Sims testing technique which this
 module is supporting.
 
+L<Data::Random> for common rand_* routines.
+
+L<Data::Generate> to generate random data from a set of rules.
+
 
 =head1 SOURCE
 
