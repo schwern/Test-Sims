@@ -5,6 +5,7 @@ inc/MyBuild.pm
 lib/Test/Sims.pm
 MANIFEST			This list of files
 MANIFEST.SKIP
+META.yml
 README
 t/00compile.t
 t/control_rand.t
@@ -18,4 +19,3 @@ t/make_rand_code.t
 t/no_tests_no_seed.t
 t/note_seed_on_pass.t
 t/rand.t
-META.yml
