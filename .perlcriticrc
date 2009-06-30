@@ -23,3 +23,9 @@ pager           = $PAGER
 # Extend the ability to play with @_ to 3 line subroutines.
 [Subroutines::RequireArgUnpacking]
 short_subroutine_statements = 3
+
+
+# We turn off strict refs a lot.  Why fight it?
+[TestingAndDebugging::ProhibitNoStrict]
+allow = refs
+
