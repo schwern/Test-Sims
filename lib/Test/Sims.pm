@@ -98,15 +98,50 @@ A utility function which causes your module to export all the
 functions called C<<sims_*>>.  It also creates an export tag called
 "sims".
 
+You should call this at the end of your Sim package.
+
+
 =head2 Controlling randomness
 
 You can control the random seed used by Test::Sims by setting the
 C<TEST_SIMS_SEED> environment variable.  This is handy to make test runs
 repeatable.
 
+    TEST_SIMS_SEED=12345 perl -Ilib t/some_test.t
+
 Test::Sims will output the seed used at the end of each test run.  If
 the test failed it will be visible to the user, otherwise it will be a
 TAP comment and only visible if the test is run verbosely.
+
+
+=head2 C<sim> functions
+
+Test::Sims doesn't do anything with functions named C<sim_*> but
+export them.  Generally we recommend they're written like so:
+
+    sub sim_thing {
+        my %defaults = (
+            name        => rand_name(),
+            age         => rand_age(),
+            motto       => rand_text(),
+            picture     => rand_image(),
+        );
+
+        return Thing->new( %defaults, @_ );
+    }
+
+This way you can get a completely random Thing.
+
+    my $thing = sim_thing();
+
+Or you can lock down the bits you need leaving the rest to float free.
+
+    # Joe's motto and picture remain random
+    my $joe = sim_thing(
+        name => "Joe",
+        age  => 64
+    );
+
 
 =cut
 
@@ -117,7 +152,7 @@ our @EXPORT = qw(make_rand export_sims);
 my $Seed = defined $ENV{TEST_SIMS_SEED} ? $ENV{TEST_SIMS_SEED} : time ^ $$;
 
 # XXX If something else calls srand() we're in trouble
-srand($Seed);
+srand $Seed;
 
 ## no critic (Subroutines::RequireArgUnpacking)
 sub import {
@@ -137,11 +172,10 @@ sub make_rand {
     my $thing = shift;
 
     my $items = ref $thing eq "ARRAY" ? $thing : [];
-    my $code  = $thing if ref $thing eq "CODE";
 
     my $caller = caller;
 
-    $code ||= sub {
+    my $code = ref $thing eq 'CODE' ? $thing : sub {
         my %args = @_;
         $args{min} = 1 unless defined $args{min};
         $args{max} = 1 unless defined $args{max};
@@ -239,6 +273,59 @@ END {
 }
 
 1;
+
+
+=head1 EXAMPLE
+
+Here's an example of making a simple package to generate random dates.
+
+    package Sim::Date;
+
+    use strict;
+    use warnings;
+
+    use DateTime;
+    use Test::Sims;
+
+    # Create rand_year(), rand_month(), etc...
+    # All exportable on demand or with the :rand tag
+    make_rand year  => [1800..2100];
+    make_rand month => [1..12];
+    make_rand day   => [1..31];
+    make_rand hour  => [0..23];
+    make_rand minute=> [0..59];
+    make_rand second=> [0..59];
+
+    sub sim_datetime {
+        my %defaults = (
+            year   => rand_year(),
+            month  => rand_month(),
+            day    => rand_day(),
+            hour   => rand_hour(),
+            minute => rand_minute(),
+            second => rand_second(),
+        );
+
+        return DateTime->new(
+            %defaults, @_
+        );
+    }
+
+    # Export sim_datetime()
+    export_sims();
+
+And then using it.
+
+    use Sim::Date;
+
+    # Random date.
+    my $date = sim_datetime;
+
+    # Random date in the year 2009
+    my $date = sim_datetime(
+        year => 2009
+    );
+
 
 =head1 SEE ALSO
 

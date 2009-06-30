@@ -10,6 +10,7 @@ t/00compile.t
 t/control_rand.t
 t/diag_seed_on_fail.t
 t/diag_seed_on_plan_but_no_tests.t
+t/examples/datetime.t
 t/export_sims.t
 t/exports.t
 t/lib/MyTest.pm
