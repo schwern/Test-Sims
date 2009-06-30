@@ -15,6 +15,7 @@ my $builder = MyBuild->new(
 
     meta_merge => {
         resources => {
+            homepage   => 'http://github.com/schwern/Test-Sims',
             repository => 'http://github.com/schwern/Test-Sims/tree/master',
             bugtracker => 'http://github.com/schwern/Test-Sims/issues',
         },
