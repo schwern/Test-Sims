@@ -86,6 +86,7 @@ my $Seed = defined $ENV{TEST_SIMS_SEED} ? $ENV{TEST_SIMS_SEED} : time ^ $$;
 # XXX If something else calls srand() we're in trouble
 srand($Seed);
 
+## no critic (Subroutines::RequireArgUnpacking)
 sub import {
     my $class  = shift;
     my $caller = caller;
@@ -95,7 +96,7 @@ sub import {
         unshift @{ $caller . "::ISA" }, "Exporter" unless $caller->isa("Exporter");
     }
 
-    __PACKAGE__->export_to_level( 1, $class, @_ );
+    return __PACKAGE__->export_to_level( 1, $class, @_ );
 }
 
 sub make_rand {

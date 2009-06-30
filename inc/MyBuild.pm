@@ -1,5 +1,6 @@
 package MyBuild;
 
+use strict;
 use base 'Module::Build';
 
 # Run perltidy over all the Perl code
@@ -13,7 +14,7 @@ sub ACTION_tidy {
       $self->_find_file_by_type( 't',  't' ),
       $self->_find_file_by_type( 'PL', '.' );
 
-    my @files = ( keys %found_files, map { $self->localize_file_path($_) } @extra );
+    my @files = keys %found_files;
 
     print "Running perltidy on @{[ scalar @files ]} files...\n";
     for my $file ( sort { $a cmp $b } @files ) {
@@ -21,6 +22,16 @@ sub ACTION_tidy {
         system( 'perltidy', '-b', $file );
         unlink("$file.bak") if $? == 0;
     }
+}
+
+
+sub ACTION_critic {
+    my $self = shift;
+
+    my @files = keys %{$self->find_pm_files};
+
+    print "Running perlcritic on @{[ scalar @files ]} files...\n";
+    system( "perlcritic", "-3", @files );
 }
 
 1;

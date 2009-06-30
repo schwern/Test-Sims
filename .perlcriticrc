@@ -18,11 +18,19 @@ pager           = $PAGER
 [-ControlStructures::ProhibitPostfixControls]
 [-References::ProhibitDoubleSigils]
 [-Documentation::RequirePodAtEnd]
+[-Modules::ProhibitAutomaticExportation]
+
+# RCS keywords?  Get real.
+[-Miscellanea::RequireRcsKeywords]
 
 
 # Extend the ability to play with @_ to 3 line subroutines.
 [Subroutines::RequireArgUnpacking]
 short_subroutine_statements = 3
+
+# No point putting a /x on really short regexes.
+[RegularExpressions::RequireExtendedFormatting]
+minimum_regex_length_to_complain_about = 5
 
 
 # We turn off strict refs a lot.  Why fight it?
