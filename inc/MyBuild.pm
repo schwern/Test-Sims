@@ -15,7 +15,6 @@ sub ACTION_tidy {
 
     my @files = ( keys %found_files, map { $self->localize_file_path($_) } @extra );
 
-
     print "Running perltidy on @{[ scalar @files ]} files...\n";
     for my $file ( sort { $a cmp $b } @files ) {
         print "  $file\n";

@@ -9,15 +9,9 @@ my $builder = MyBuild->new(
     license     => 'perl',
     dist_author => 'Michael G Schwern <schwern@pobox.com>',
 
-    requires => {
-        'perl'                    => '5.8.1',
-    },
-    build_requires => {
-        'Test::More' => '0.88',
-    },
-    configure_requires => {
-        'Module::Build' => '0.32'
-    },
+    requires           => { 'perl'          => '5.8.1', },
+    build_requires     => { 'Test::More'    => '0.88', },
+    configure_requires => { 'Module::Build' => '0.32' },
 
     meta_merge => {
         resources => {

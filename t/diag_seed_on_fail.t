@@ -17,21 +17,20 @@ my $test = Test::Builder->create;
 my $tb = Test::More->builder->new;
 
 my %output = (
-    tap         => '',
-    err         => '',
-    todo        => ''
+    tap  => '',
+    err  => '',
+    todo => ''
 );
-$tb->output        (\$output{tap});
-$tb->failure_output(\$output{err});
-$tb->todo_output   (\$output{todo});
+$tb->output( \$output{tap} );
+$tb->failure_output( \$output{err} );
+$tb->todo_output( \$output{todo} );
 
 $tb->plan( tests => 1 );
 fail("Passing test");
 
-
 END {
     $test->plan( tests => 2 );
-    $test->unlike( $output{tap},   qr/TEST_SIMS_SEED/ );
+    $test->unlike( $output{tap}, qr/TEST_SIMS_SEED/ );
     $test->like( $output{err}, qr/TEST_SIMS_SEED/ );
 
     # Else Test::More will try to exit with non-zero

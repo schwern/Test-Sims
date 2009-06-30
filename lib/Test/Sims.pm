@@ -5,7 +5,6 @@ use warnings;
 
 our $VERSION = "20090628";
 
-
 =head1 NAME
 
 Test::Sims - Helps build semi-random data for testing
@@ -88,20 +87,19 @@ my $Seed = defined $ENV{TEST_SIMS_SEED} ? $ENV{TEST_SIMS_SEED} : time ^ $$;
 srand($Seed);
 
 sub import {
-    my $class = shift;
+    my $class  = shift;
     my $caller = caller;
 
     {
         no strict 'refs';
-        unshift @{$caller. "::ISA"}, "Exporter" unless $caller->isa("Exporter");
+        unshift @{ $caller . "::ISA" }, "Exporter" unless $caller->isa("Exporter");
     }
 
-    __PACKAGE__->export_to_level(1, $class, @_);
+    __PACKAGE__->export_to_level( 1, $class, @_ );
 }
 
-
 sub make_rand {
-    my $name = shift;
+    my $name  = shift;
     my $items = shift;
 
     my $caller = caller;
@@ -111,94 +109,88 @@ sub make_rand {
         $args{min} = 1 unless defined $args{min};
         $args{max} = 1 unless defined $args{max};
 
-        my $max = int rand($args{max} - $args{min} + 1) + $args{min};
+        my $max = int rand( $args{max} - $args{min} + 1 ) + $args{min};
 
         my @return;
-        for (1..$max) {
-            push @return, $items->[rand @$items];
+        for( 1 .. $max ) {
+            push @return, $items->[ rand @$items ];
         }
 
         return @return;
     };
 
     my $func = "rand_$name";
-    _alias($caller, $func, $code);
-    _add_to_export_ok($caller, $func);
-    _add_to_export_tags($caller, $func, 'rand');
+    _alias( $caller, $func, $code );
+    _add_to_export_ok( $caller, $func );
+    _add_to_export_tags( $caller, $func, 'rand' );
 
     return $code;
 }
-
 
 sub export_sims {
     my $caller = caller;
 
     my $symbols = do {
         no strict 'refs';
-        \%{$caller .'::'};
+        \%{ $caller . '::' };
     };
 
-    my @sim_funcs = grep { *{$symbols->{$_}}{CODE} }
-                    grep /^sim_/, keys %$symbols;
+    my @sim_funcs = grep { *{ $symbols->{$_} }{CODE} }
+      grep /^sim_/, keys %$symbols;
     for my $func (@sim_funcs) {
-        _add_to_export($caller, $func);
-        _add_to_export_tags($caller, $func, 'sims');
+        _add_to_export( $caller, $func );
+        _add_to_export_tags( $caller, $func, 'sims' );
     }
 
     return;
 }
 
-
 sub _add_to_export_ok {
-    my($package, $func) = @_;
+    my( $package, $func ) = @_;
 
     no strict 'refs';
-    push @{$package . '::EXPORT_OK'}, $func;
+    push @{ $package . '::EXPORT_OK' }, $func;
 
     return;
 }
 
-
 sub _add_to_export {
-    my($package, $func) = @_;
+    my( $package, $func ) = @_;
 
     no strict 'refs';
-    push @{$package . '::EXPORT'}, $func;
+    push @{ $package . '::EXPORT' }, $func;
 
     return;
 }
 
 sub _add_to_export_tags {
-    my($package, $func, $tag) = @_;
+    my( $package, $func, $tag ) = @_;
 
     no strict 'refs';
     my $export_tags = \%{ $package . '::EXPORT_TAGS' };
-    push @{$export_tags->{$tag}}, $func;
+    push @{ $export_tags->{$tag} }, $func;
 
     return;
 }
-
 
 sub _alias {
-    my($package, $func, $code) = @_;
+    my( $package, $func, $code ) = @_;
 
     no strict 'refs';
-    *{$package .'::'. $func} = $code;
+    *{ $package . '::' . $func } = $code;
 
     return;
 }
-
 
 sub _display_seed {
     my $tb = shift;
 
-    my $ok = $tb->summary && !(grep !$_, $tb->summary);
+    my $ok = $tb->summary && !( grep !$_, $tb->summary );
     my $msg = "TEST_SIMS_SEED=$Seed";
     $ok ? $tb->note($msg) : $tb->diag($msg);
 
     return;
 }
-
 
 END {
     require Test::Builder;
@@ -210,7 +202,6 @@ END {
 }
 
 1;
-
 
 =head1 SEE ALSO
 

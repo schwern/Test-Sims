@@ -13,16 +13,15 @@ BEGIN {
 }
 
 {
+
     package Flowers;
 
     use Test::Sims;
-    
-    make_rand "flower" => [
-        qw(Rose Daisy Ed Bob)
-    ];
 
-    ::is_deeply [rand_flower()], ['Bob'];
-    ::is_deeply [rand_flower(max => 5)], ['Ed', 'Ed'];
+    make_rand "flower" => [ qw(Rose Daisy Ed Bob) ];
+
+    ::is_deeply [ rand_flower() ], ['Bob'];
+    ::is_deeply [ rand_flower( max => 5 ) ], [ 'Ed', 'Ed' ];
 }
 
 done_testing();

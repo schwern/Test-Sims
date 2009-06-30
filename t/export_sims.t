@@ -6,12 +6,11 @@ use warnings;
 use Test::More;
 
 {
+
     package Phone;
     use Test::Sims;
 
-    make_rand phone => [
-        qw(555-555-5555 212-123-4567)
-    ];
+    make_rand phone => [ qw(555-555-5555 212-123-4567) ];
 
     sub sim_phone {
         return rand_phone();
@@ -24,8 +23,8 @@ use Test::More;
     export_sims();
 }
 
-
 {
+
     package Foo;
 
     Phone->import;
@@ -33,8 +32,8 @@ use Test::More;
     ::can_ok( Foo => "sim_phone", "sim_thing" );
 }
 
-
 {
+
     package Bar;
 
     Phone->import(":sims");
@@ -42,14 +41,13 @@ use Test::More;
     ::can_ok( Bar => "sim_phone", "sim_thing" );
 }
 
-
 {
+
     package Baz;
 
     Phone->import("sim_thing");
 
     ::can_ok( Baz => "sim_thing" );
 }
-
 
 done_testing();

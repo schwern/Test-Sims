@@ -7,6 +7,7 @@ use Test::More;
 
 # A class without any other exports.
 {
+
     package Flowers;
     use Test::Sims;
 
@@ -16,6 +17,7 @@ use Test::More;
 
 # A class which already has exports
 {
+
     package Things;
 
     use base "Exporter";
@@ -30,30 +32,30 @@ use Test::More;
     ::is_deeply \@Things::ISA, ["Exporter"], "Exporter only added to \@ISA once";
 }
 
-
 # Test :rand export tag
 {
+
     package Foo;
 
     Flowers->import(":rand");
 
-    ::can_ok(__PACKAGE__, "rand_flower");
-    ::can_ok(__PACKAGE__, "rand_numbers");
+    ::can_ok( __PACKAGE__, "rand_flower" );
+    ::can_ok( __PACKAGE__, "rand_numbers" );
 }
-
 
 # Test rand functions are in @EXPORT_OK
 {
+
     package Bar;
 
     Flowers->import("rand_flower");
 
-    ::can_ok(__PACKAGE__, "rand_flower");
+    ::can_ok( __PACKAGE__, "rand_flower" );
 }
-
 
 # Test rand functions are not exported by default.
 {
+
     package Baz;
 
     Flowers->import();
@@ -61,12 +63,12 @@ use Test::More;
     ::ok( !Baz->can("rand_flower"), "does not export rand by default" );
 }
 
-
 # Test existing exports are preserved
 {
+
     package Wiffle;
 
-    Things->import("stuff", "rand_stuff");
+    Things->import( "stuff", "rand_stuff" );
 
     ::is( stuff(), 42, "\@EXPORT_OK preserved" );
     ::can_ok( Wiffle => "rand_stuff" );
