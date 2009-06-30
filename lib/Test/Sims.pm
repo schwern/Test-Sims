@@ -153,7 +153,7 @@ sub make_rand {
             push @return, $items->[ rand @$items ];
         }
 
-        return @return;
+        return @return == 1 ? $return[0] : @return;
     };
 
     my $func = "rand_$name";
