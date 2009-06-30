@@ -56,12 +56,39 @@ test data.
 
 Creates a subroutine called C<<rand_$name>> and exports it on request.
 
-If a @list is given, an element will be taken out of that list at random.
+If a @list is given it will generate a subroutine which returns
+elements out of @list at random.  It takes C<min> and C<max> arguments
+to control how many.
+
+    my @items = rand_$name(
+        min => $min_random_items,
+        max => $max_random_items
+    );
+
+C<min> and C<max> both default to 1.  So by default you get 1 item.
 
 If a subroutine is given it will simply give that routine a name.
 This is just to get the convenience of adding it to the exports.
 
 Also adds it to a "rand" export tag.
+
+    {
+        package Sim::Firefly;
+
+        make_rand crew => [
+            qw(Zoe Wash Mal River Simon Book Jayne Kaylee Inara)
+        ];
+    }
+
+    ...later...
+
+    {
+        use Sim::Firefly ":rand";
+
+        my $crew = rand_crew;             # 1 name
+        my @crew = rand_crew( max => 3 ); # 1, 2 or 3 names
+    }
+
 
 =head2 export_sims()
 
