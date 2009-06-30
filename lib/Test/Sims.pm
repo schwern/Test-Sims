@@ -37,6 +37,9 @@ Test::Sims - Helps build semi-random data for testing
 
 =head1 DESCRIPTION
 
+B<THIS IS AN EARLY RELEASE>! While very well tested behaviors may
+change.  The interface is not stable.
+
 This is a module to help building semi-random data for testing and to
 create large, nested, interesting data structures.
 
@@ -207,6 +210,30 @@ END {
 }
 
 1;
+
+
+=head1 SEE ALSO
+
+"Generating Test Data with The Sims"
+L<http://schwern.org/talks/Generating%20Test%20Data%20With%20The%20Sims.pdf>
+is a set of slides outlining the Sims testing technique which this
+module is supporting.
+
+
+=head1 SOURCE
+
+The source code repository can be found at
+L<http://github.com/schwern/Test-Sims>.
+
+The latest release can be found at
+L<http://search.cpan.org/dist/Test-Sims>.
+
+
+=head1 BUGS
+
+Please report bugs to L<http://github.com/schwern/Test-Sims/issues>.
+
+Report early, report often.
 
 
 =head1 LICENSE and COPYRIGHT
