@@ -3,6 +3,7 @@ inc/MyBuild.pm
 lib/Test/Sims.pm
 MANIFEST			This list of files
 MANIFEST.SKIP
+README
 t/00compile.t
 t/control_rand.t
 t/diag_seed_on_fail.t
