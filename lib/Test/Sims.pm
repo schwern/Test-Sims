@@ -113,6 +113,11 @@ Test::Sims will output the seed used at the end of each test run.  If
 the test failed it will be visible to the user, otherwise it will be a
 TAP comment and only visible if the test is run verbosely.
 
+If having new data every run is too chaotic for you, you can set
+TEST_SIMS_SEED to something which will remain fixed during a
+development session.  Perhaps the PID of your shell or your uid or
+the date (20090704, for example).
+
 
 =head2 C<sim> functions
 
@@ -325,6 +330,14 @@ And then using it.
     my $date = sim_datetime(
         year => 2009
     );
+
+
+=head1 ENVIRONMENT
+
+=head3 TEST_SIMS_SEED
+
+If defined its value will be used to make tests repeatable.  See
+L<Controlling randomness>.
 
 
 =head1 SEE ALSO

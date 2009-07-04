@@ -1,4 +1,7 @@
 Next
+    Docs
+    * Sugestions for making Test::Sims a bit less chaotic.
+
     Tests
     * control_rand.t made the non-portable assumption that rand() will
       return the same thing on all platforms given the same random seed.
