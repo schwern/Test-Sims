@@ -20,3 +20,4 @@ t/make_rand_code.t
 t/no_tests_no_seed.t
 t/note_seed_on_pass.t
 t/rand.t
+t/rand_check.plx

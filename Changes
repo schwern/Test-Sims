@@ -1,3 +1,9 @@
+Next
+    Tests
+    * control_rand.t made the non-portable assumption that rand() will
+      return the same thing on all platforms given the same random seed.
+
+
 20090630.033501 - Tue Jun 30 03:35:01 UTC 2009
     Docs
     * Mention Data::Random and Data::Generate in the docs.

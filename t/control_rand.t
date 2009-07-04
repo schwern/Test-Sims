@@ -12,16 +12,10 @@ BEGIN {
     $ENV{TEST_SIMS_SEED} = 12345;
 }
 
-{
+my $have = `$^X "-Ilib" t/rand_check.plx`;
+my $want = `$^X "-Ilib" t/rand_check.plx`;
 
-    package Flowers;
+like $have, qr/^\w+$/, "got sensible output";
+is $have, $want, "Can control randomness with TEST_SIMS_SEED";
 
-    use Test::Sims;
-
-    make_rand "flower" => [qw(Rose Daisy Ed Bob)];
-
-    ::is_deeply [ rand_flower() ], ['Bob'];
-    ::is_deeply [ rand_flower( max => 5 ) ], [ 'Ed', 'Ed' ];
-}
-
-done_testing();
+done_testing(2);
