@@ -369,6 +369,12 @@ to L<http://github.com/schwern/Test-Sims/issues>.
 Report early, report often.
 
 
+=head1 THANKS
+
+Thanks go to the folks at Blackstar and Grant Street Group for helping
+to develop this technique.
+
+
 =head1 LICENSE and COPYRIGHT
 
 Copyright 2009 Michael G Schwern E<gt>schwern@pobox.comE<lt>
