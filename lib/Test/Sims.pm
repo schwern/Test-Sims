@@ -154,7 +154,7 @@ use base qw(Exporter);
 our @EXPORT = qw(make_rand export_sims);
 
 # Yes, its not a great seed but it doesn't have to be secure.
-my $Seed = defined $ENV{TEST_SIMS_SEED} ? $ENV{TEST_SIMS_SEED} : time ^ $$;
+my $Seed = defined $ENV{TEST_SIMS_SEED} ? $ENV{TEST_SIMS_SEED} : (time ^ ($$ * $< * $());
 
 # XXX If something else calls srand() we're in trouble
 srand $Seed;
