@@ -1,6 +1,6 @@
 ---
 name: Test-Sims
-version: 20090704
+version: 20090704.203236
 author:
   - 'Michael G Schwern <schwern@pobox.com>'
 abstract: Helps build semi-random data for testing
@@ -19,7 +19,7 @@ configure_requires:
 provides:
   Test::Sims:
     file: lib/Test/Sims.pm
-    version: 20090704
+    version: 20090704.203236
 generated_by: Module::Build version 0.3305
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
