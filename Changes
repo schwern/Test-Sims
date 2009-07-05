@@ -2,6 +2,9 @@ Next
     Other
     * Picked a better default seed
 
+    Tests
+    * The date generation example (also a test) would go out of bounds
+
 
 20090704 - Sat Jul  4 13:23:17 PDT 2009
     Docs
