@@ -8,4 +8,4 @@ Build
 _build
 cover_db/
 nytprof*
-
+MYMETA.*
