@@ -16,7 +16,7 @@ name: Test-Sims
 provides:
   Test::Sims:
     file: lib/Test/Sims.pm
-    version: '20171231'
+    version: '20180103'
 requires:
   perl: v5.8.1
 resources:
@@ -24,4 +24,4 @@ resources:
   homepage: http://github.com/schwern/Test-Sims
   license: http://dev.perl.org/licenses/
   repository: http://github.com/schwern/Test-Sims/tree/master
-version: '20171231'
+version: '20180103'

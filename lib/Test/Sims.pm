@@ -3,7 +3,7 @@ package Test::Sims;
 use strict;
 use warnings;
 
-our $VERSION = "20171231";
+our $VERSION = "20180103";
 
 =head1 NAME
 
