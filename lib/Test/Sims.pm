@@ -212,12 +212,9 @@ sub export_sims {
     };
 
     my @sim_funcs = grep {
-        *{ $symbols->{$_} }{CODE}
-      }
-      grep {
           # Protect against non-glob refs in the symbol table.
           my $ref = ref $symbols->{$_};
-          $ref eq 'GLOB' || $ref eq ''
+          $ref eq 'CODE' || (($ref eq 'GLOB' || $ref eq '') && *{ $symbols->{$_} }{CODE})
       }
       grep /^sim_/,
       keys %$symbols;
